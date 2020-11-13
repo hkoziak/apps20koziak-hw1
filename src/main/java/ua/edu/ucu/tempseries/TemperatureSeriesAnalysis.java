@@ -87,7 +87,8 @@ public class TemperatureSeriesAnalysis {
                 closest = tempSet[i];
                 diff = Math.abs(tempSet[i] - tempValue);
             } else if
-                ((java.lang.Math.abs(tempSet[i] - tempValue) == diff) && ((tempSet[i] - closest) > 0)) {
+                ((java.lang.Math.abs(tempSet[i] - tempValue) == diff) &&
+                            ((tempSet[i] - closest) > 0)) {
                 closest = tempSet[i];
             }
         }
@@ -104,8 +105,10 @@ public class TemperatureSeriesAnalysis {
                 ++smTempslength;
             }
         }
-        double[] croppedSmallerTemps = new double[smTempslength];
-        System.arraycopy(smallerTemps, 0, croppedSmallerTemps, 0, smTempslength);
+        double[] croppedSmallerTemps =
+                new double[smTempslength];
+        System.arraycopy(
+                smallerTemps, 0, croppedSmallerTemps, 0, smTempslength);
         return croppedSmallerTemps;
     }
 
@@ -125,10 +128,10 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        TempSummaryStatistics StatisticsAnalyzer =  new TempSummaryStatistics();
+        TempSummaryStatistics statisticsAnalyzer =  new TempSummaryStatistics();
         checkTempArrayLength();
-        StatisticsAnalyzer.UpdateData(this);
-        return StatisticsAnalyzer;
+        statisticsAnalyzer.updateData(this);
+        return statisticsAnalyzer;
     }
 
     public int addTemps(double... temps) {
