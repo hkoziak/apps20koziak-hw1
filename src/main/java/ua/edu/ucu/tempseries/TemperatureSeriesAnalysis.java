@@ -2,7 +2,7 @@ package ua.edu.ucu.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private final double absZero = -273.0;
+    private final static double absZero = -273.0;
     private double[] tempSet;
     private int size = 0;
 
@@ -47,7 +47,7 @@ public class TemperatureSeriesAnalysis {
         double average = average();
         double sqVals = 0;
         for (int i = 0; i < size; ++i) {
-            sqVals += java.lang.Math.pow((average - tempSet[i]), 2);
+            sqVals += (average - tempSet[i]) * (average - tempSet[i]);
         }
         return java.lang.Math.sqrt(sqVals / size);
     }
