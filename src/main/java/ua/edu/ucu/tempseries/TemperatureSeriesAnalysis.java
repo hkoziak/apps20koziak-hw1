@@ -87,8 +87,8 @@ public class TemperatureSeriesAnalysis {
                 closest = tempSet[i];
                 diff = Math.abs(tempSet[i] - tempValue);
             } else if
-                ((java.lang.Math.abs(tempSet[i] - tempValue) == diff) &&
-                            ((tempSet[i] - closest) > 0)) {
+                ((java.lang.Math.abs(tempSet[i] - tempValue) == diff)
+                            && ((tempSet[i] - closest) > 0)) {
                 closest = tempSet[i];
             }
         }
@@ -123,7 +123,8 @@ public class TemperatureSeriesAnalysis {
             }
         }
         double[] croppedGreaterTemps = new double[grTempslength];
-        System.arraycopy(greaterTemps, 0, croppedGreaterTemps, 0, grTempslength);
+        System.arraycopy(
+                greaterTemps, 0, croppedGreaterTemps, 0, grTempslength);
         return croppedGreaterTemps;
     }
 
