@@ -2,7 +2,7 @@ package ua.edu.ucu.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private final static double absZero = -273.0;
+    private static final double ABS_ZERO = -273.0;
     private double[] tempSet;
     private int size = 0;
 
@@ -20,7 +20,7 @@ public class TemperatureSeriesAnalysis {
 
     private int checkIfAbsZero(double[] tempSeries) {
         for (double temp : tempSeries) {
-            if (temp < absZero) {
+            if (temp < ABS_ZERO) {
                 return 1;
             }
         }
@@ -75,26 +75,75 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double findTempClosestToZero() {
-        return 0;
+        return findTempClosestToValue(0);
     }
 
     public double findTempClosestToValue(double tempValue) {
-        return 0;
+        checkTempArrayLength();
+        double closest = tempSet[0];
+        double diff = Math.abs(tempValue - closest);
+        for (int i = 0; i < size; ++i) {
+            if (java.lang.Math.abs(tempSet[i] - tempValue) < diff) {
+                closest = tempSet[i];
+                diff = Math.abs(tempSet[i] - tempValue);
+            } else if
+                ((java.lang.Math.abs(tempSet[i] - tempValue) == diff) && ((tempSet[i] - closest) > 0)) {
+                closest = tempSet[i];
+            }
+        }
+        return closest;
     }
 
     public double[] findTempsLessThen(double tempValue) {
-        return null;
+        checkTempArrayLength();
+        double[] smallerTemps = new double[size];
+        int smTempslength = 0;
+        for (int i = 0; i < size; ++i) {
+            if (tempSet[i] < tempValue) {
+                smallerTemps[smTempslength] = tempSet[i];
+                ++smTempslength;
+            }
+        }
+        double[] croppedSmallerTemps = new double[smTempslength];
+        System.arraycopy(smallerTemps, 0, croppedSmallerTemps, 0, smTempslength);
+        return croppedSmallerTemps;
     }
 
     public double[] findTempsGreaterThen(double tempValue) {
-        return null;
+        checkTempArrayLength();
+        double[] greaterTemps = new double[size];
+        int grTempslength = 0;
+        for (int i = 0; i < size; ++i) {
+            if (tempSet[i] > tempValue) {
+                greaterTemps[grTempslength] = tempSet[i];
+                ++grTempslength;
+            }
+        }
+        double[] croppedGreaterTemps = new double[grTempslength];
+        System.arraycopy(greaterTemps, 0, croppedGreaterTemps, 0, grTempslength);
+        return croppedGreaterTemps;
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        return null;
+        TempSummaryStatistics StatisticsAnalyzer =  new TempSummaryStatistics();
+        checkTempArrayLength();
+        StatisticsAnalyzer.UpdateData(this);
+        return StatisticsAnalyzer;
     }
 
     public int addTemps(double... temps) {
-        return 0;
+        checkIfAbsZero(temps);
+        int tempsSize = temps.length;
+        if ((size + tempsSize) > tempSet.length) {
+            double[] copySet = new double[size + tempsSize];
+            System.arraycopy(tempSet, 0, copySet, 0, size);
+            System.arraycopy(temps, 0, copySet, size, tempsSize);
+            this.tempSet = copySet;
+            this.size = size + tempsSize;
+        } else if (size == 0) {
+            this.tempSet = temps;
+            this.size = tempsSize;
+        }
+        return size;
     }
 }
