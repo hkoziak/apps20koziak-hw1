@@ -77,14 +77,14 @@ public class TemperatureSeriesAnalysisTest {
         double expectedValue = 116;
         double[] temperatureSeries = {14.0, 02.0, 18.0, -272, 0, 98, 116, -83};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-        double actualValue = seriesAnalysis.min();
+        double actualValue = seriesAnalysis.max();
         assertEquals(expectedValue, actualValue, 0.00001);
     }
 
     @Test
     public void testValueClosestToZero() {
         double expectedValue = 2;
-        double[] temperatureSeries = {14.0, 02.0, 18.0, -272, 0, 98, 116, -83};
+        double[] temperatureSeries = {14.0, 02.0, 18.0, -272, 98, 116, -83};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double actualValue = seriesAnalysis.findTempClosestToZero();
         assertEquals(expectedValue, actualValue, 0.00001);
@@ -93,7 +93,7 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testTwoSameValuesClosestToZero() {
         double expectedValue = 2;
-        double[] temperatureSeries = {14.0, 02.0, -2.0, 18.0, -272, 0, 98, 116, -83};
+        double[] temperatureSeries = {14.0, 02.0, -2.0, 18.0, -272, 98, 116, -83};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double actualValue = seriesAnalysis.findTempClosestToZero();
         assertEquals(expectedValue, actualValue, 0.00001);
@@ -128,7 +128,7 @@ public class TemperatureSeriesAnalysisTest {
 
     @Test
     public void testTempSummaryStats() {
-        double expectedAverage = 8;
+        double expectedAverage = 3.2;
         double expectedDeviation = 3.969886648;
         double expectedMin = -1;
         double expectedMax = 10;
@@ -154,7 +154,7 @@ public class TemperatureSeriesAnalysisTest {
 
     @Test
     public void testAddTemps() {
-        double expectedValue = 7;
+        double expectedValue = 2;
         double[] temperatureSeries = {-1, 0, 2, 5, 10};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis();
         double[] temps = {3, 7};
